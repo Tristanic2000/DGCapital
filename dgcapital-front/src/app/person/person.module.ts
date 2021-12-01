@@ -4,6 +4,7 @@ import { PersonListComponent } from './person-list/person-list.component';
 import { PersonReportComponent } from './person-report/person-report.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { PersonAddEditComponent } from './person-add-edit/person-add-edit.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RouterModule.forChild([
       { path: "person-list", component: PersonListComponent},
-      { path: "person-report", component: PersonReportComponent}
+      { path: "person-report", component: PersonReportComponent},
+      { path: "person/:id", component: PersonAddEditComponent}
    ])
 
   ]
