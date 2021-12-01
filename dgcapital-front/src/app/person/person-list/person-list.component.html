@@ -1,1 +1,35 @@
-<p>person-list works!</p>
+<div class="card">
+    <div class="card-header">
+            List of People
+    </div>
+
+    <ng-container *ngIf="people">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="people.length">
+    
+                <tr *ngFor="let person of people">
+                    <td>{{person.name}}</td>
+                    <td>{{person.surname}}</td>
+                    <td>{{getAge(person.birthdate)}}</td>
+    
+                    <td>
+                        <button class="btn btn-warning" (click)="onEdit(person.id)" style="margin-right: 10px;">Edit
+                        </button>
+    
+                        <button class="btn btn-danger" (click)="onDelete(person.id)">Delete
+                        </button>
+                    </td>
+                </tr>
+    
+            </tbody>
+        </table>
+    </ng-container>
+    
+</div>

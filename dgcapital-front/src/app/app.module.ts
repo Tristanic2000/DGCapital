@@ -4,19 +4,18 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PersonModule } from './person/person.module';
 import { HomeComponent } from './home/home.component';
+import { PersonModule } from './person/person.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
-      { path: "home", component: AppComponent},
+      { path: "home", component: HomeComponent},
       { path: "", redirectTo: "home", pathMatch: "full"},
       { path: "**", redirectTo: "home", pathMatch: "full"}
     ]),
