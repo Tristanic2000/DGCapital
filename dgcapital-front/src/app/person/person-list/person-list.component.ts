@@ -1,7 +1,9 @@
 import { analyzeNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { birthdate } from '../birthdate';
 import { Person } from '../person';
+import { PersonService } from '../person.service';
 
 @Component({
   selector: 'app-person-list',
@@ -11,40 +13,21 @@ import { Person } from '../person';
 export class PersonListComponent implements OnInit {
 
   people: Person[];
-  constructor() { }
+
+  constructor(private personService: PersonService,
+              private router: Router,) { }
 
   ngOnInit(): void {
-    this.people = [{
-      id: 1,
-      name : "John",
-      surname : "Stevens",
-      birthdate : {day: "17", month: "01", year: "2011"}
-    },{
-      id: 2,
-      name : "Peter",
-      surname : "Dudeson",
-      birthdate : {day: "25", month: "07", year: "1989"}
-    },{
-      id: 3,
-      name : "Tristan",               //temp fake data
-      surname : "Henderson",
-      birthdate : {day: "03", month: "08", year: "2000"}
-    },{
-      id: 4,
-      name : "Pierre",
-      surname : "Putter",
-      birthdate : {day: "10", month: "08", year: "2000"}
-    },{
-      id: 5,
-      name : "Ruan",
-      surname : "Dingo",
-      birthdate : {day: "25", month: "07", year: "1989"}
-    },{
-      id: 6,
-      name : "bish",
-      surname : "bosh",
-      birthdate : {day: "30", month: "12", year: "2019"}
-    }]
+    this.personService.getPeople().subscribe(
+      (people) => {
+
+        console.log(people);
+        this.people = people;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   getAge(birthdate: birthdate): number{
@@ -65,11 +48,13 @@ export class PersonListComponent implements OnInit {
     return -1;
   }
 
-  onEdit(id: number){
-
+  onEdit(person: Person){
+    
+    if (person != undefined)
+      this.router.navigate(['person', person.id])
   }
 
-  onDelete(id: number){
+  onDelete(person: Person){
     
   }
 

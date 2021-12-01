@@ -9,7 +9,7 @@ import { PersonModule } from './person/person.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

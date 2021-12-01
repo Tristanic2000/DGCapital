@@ -1,1 +1,21 @@
-<p>person-report works!</p>
+<div class="card">
+    <div class="card-header">
+        People Report
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Birthdays</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let month of months">
+                <td>{{month}}</td>
+                <td>{{getBirthdays(month)}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
