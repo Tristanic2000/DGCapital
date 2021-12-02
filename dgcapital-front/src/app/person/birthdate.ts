@@ -1,5 +1,5 @@
-export class birthdate{
-    day: string;
-    month: string;
-    year: string;
+export class Birthdate{
+    day: string = "";
+    month: string = "";
+    year: string = "";
 }

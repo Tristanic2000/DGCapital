@@ -1,11 +1,14 @@
 import { InMemoryDbService } from "angular-in-memory-web-api";
+import { Person } from "./person";
 
 
 
 export class FakePerson implements InMemoryDbService {
 
     createDb() {
-        return [{
+
+        const people: Person[] = 
+        [{
             id: 1,
             name: "John",
             surname: "Stevens",
@@ -36,5 +39,7 @@ export class FakePerson implements InMemoryDbService {
             surname: "bosh",
             birthdate: { day: "30", month: "12", year: "2019" }
         }]
+
+        return {people};
     }
 }

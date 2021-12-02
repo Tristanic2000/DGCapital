@@ -8,7 +8,7 @@ import { Person } from './person';
 @Injectable()
 export class PersonService {
 
-  private APIurl = "api/salaries"
+  private APIurl = "api/people"
   private people: Person[];
 
 

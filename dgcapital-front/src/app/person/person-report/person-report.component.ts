@@ -12,12 +12,27 @@ import { PersonService } from '../person.service';
 export class PersonReportComponent implements OnInit {
 
   people: Person[];
-  months: Months;
+   months: Months[];
 
   constructor(private personService: PersonService,
     private router: Router,) { }
 
   ngOnInit(): void {
+
+    this.months = [
+      {monthName: "January", monthValue:"01"},
+      {monthName: "February", monthValue:"02"},
+      {monthName: "March", monthValue:"03"},
+      {monthName: "April", monthValue:"04"},
+      {monthName: "May", monthValue:"05"},
+      {monthName: "June", monthValue:"06"},
+      {monthName: "July", monthValue:"07"},
+      {monthName: "August", monthValue:"08"},
+      {monthName: "September", monthValue:"09"},
+      {monthName: "October", monthValue:"10"},
+      {monthName: "November", monthValue:"11"},
+      {monthName: "December", monthValue:"12"}
+    ];
 
     this.personService.getPeople().subscribe(
       (people) => {
@@ -31,14 +46,14 @@ export class PersonReportComponent implements OnInit {
     )
   }
 
-  getBirthdays(month: number): number {
+  getBirthdays(month: string): number {
     if (this.people) {
 
       var i = 0;
 
       this.people.forEach(
         person => {
-          if (person.birthdate.month == month.toString()) 
+          if (person.birthdate.month == month) 
             i++;
         }
       )

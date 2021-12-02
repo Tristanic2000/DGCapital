@@ -1,1 +1,258 @@
-<p>person-add-edit works!</p>
+<div class="card">
+    <div class="card-header">
+        {{pageTitle}}
+    </div>
+
+
+    <div *ngIf="serviceMessage=='Loading'" class="alert alert-secondary" role="alert" style="text-align: center;">
+        Busy loading the person. Time taken so far: {{loadingTime}}s.
+    </div>
+
+    <div *ngIf="serviceMessage=='Success'" class="alert alert-success alert-dismissible" role="alert" style="text-align: center;">
+        Person successfully loaded!
+        <button class="close btn btn-close" (click)="clearServiceMessage()"> </button>
+    </div>
+
+    <div *ngIf="serviceMessage=='Fail'" class="alert alert-warning alert-dismissible" role="alert" style="text-align: center;">
+        Error. Failed to load Person.
+        <button class="close btn btn-close" (click)="clearServiceMessage()"> </button>
+    </div>
+
+    <ng-container *ngIf="person">
+        <div class="card-body">
+            <form novalidate
+                  (ngSubmit)="savePerson()"
+                  [formGroup]="personForm">
+
+                <!-- NAME -->
+                <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" for="name">Name</label>
+
+                    <div class="col-md-8">
+                        <input class="form-control"
+                               id="name"
+                               type="text"
+                               placeholder="Person Name (Required)"
+                               formControlName="name"
+                               [ngClass]="{'is-invalid': ((personForm.get('name')?.touched ||
+                                                           personForm.get('name')?.dirty) &&
+                                                           !personForm.get('name')?.valid) ||
+                                                           validationMessages && !personForm.get('name')?.valid}"/>
+
+                        <span class="invalid-feedback">
+                            
+                            <span *ngIf="personForm.get('name')?.errors?.noWhitespace">
+                                Name cannot contain any whitespaces.
+                            </span>
+                            <span *ngIf="personForm.get('name')?.errors?.required">
+                                Please enter the Name
+                            </span>
+                            <span *ngIf="personForm.get('name')?.errors?.minlength">
+                                Name cannot be less than 2 character long.
+                            </span>
+                            <span *ngIf="personForm.get('name')?.errors?.numbers">
+                                Name cannot contain any numbers.
+                            </span>
+                        </span>
+                        <span class="control-hint">
+                            Enter the name of the person
+                        </span>
+                    </div>
+                </div>
+
+
+                <!-- SURNAME -->
+                <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" for="surname">Surname</label>
+
+                    <div class="col-md-8">
+                        <input class="form-control"
+                               id="surname"
+                               type="text"
+                               placeholder="Person Surname (Required)"
+                               formControlName="surname"
+                               [ngClass]="{'is-invalid': ((personForm.get('surname')?.touched ||
+                                                           personForm.get('surname')?.dirty) &&
+                                                           !personForm.get('surname')?.valid) ||
+                                                           validationMessages && !personForm.get('surname')?.valid}"/>
+
+                        <span class="invalid-feedback">
+                            
+                            <span *ngIf="personForm.get('surname')?.errors?.noWhitespace">
+                                Person name cannot contain any whitespaces.
+                            </span>
+                            <span *ngIf="personForm.get('surname')?.errors?.required">
+                                Please enter the person's surname.
+                            </span>
+                            <span *ngIf="personForm.get('surname')?.errors?.minlength">
+                                Person surname cannot be less than 2 character long.
+                            </span>
+                            <span *ngIf="personForm.get('surname')?.errors?.numbers">
+                                Name cannot contain any numbers.
+                            </span>
+                        </span>
+                        <span class="control-hint">
+                            Enter the surname of the person
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- BIRTHDAY -->
+                <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label">Select Birthday</label>
+
+                     <!-- DAY -->
+                    <div class="form-group col-md-2">
+
+                        <select class="form-control"
+                                type="select"
+                                formControlName="day"
+                                [ngClass]="{'is-invalid':   ((personForm.get('day')?.touched || 
+                                                              personForm.get('day')?.dirty) && 
+                                                             !personForm.get('day')?.valid)  || 
+                                                              validationMessages && !personForm.get('day')?.valid}" >
+                            
+                            <option value="" disabled selected>
+                                  Select a Day</option>
+                                  <option value="01">1</option>
+                                  <option value="02">2</option>
+                                  <option value="03">3</option>
+                                  <option value="04">4</option>
+                                  <option value="05">5</option>
+                                  <option value="06">6</option>
+                                  <option value="07">7</option>
+                                  <option value="08">8</option>
+                                  <option value="09">9</option>
+                                  <option value="10">10</option>
+                                  <option value="11">11</option>
+                                  <option value="12">12</option>
+                                  <option value="13">13</option>
+                                  <option value="14">14</option>
+                                  <option value="15">15</option>
+                                  <option value="16">16</option>
+                                  <option value="17">17</option>
+                                  <option value="18">18</option>
+                                  <option value="19">19</option>
+                                  <option value="20">20</option>
+                                  <option value="21">21</option>
+                                  <option value="22">22</option>
+                                  <option value="23">23</option>
+                                  <option value="24">24</option>
+                                  <option value="25">25</option>
+                                  <option value="26">26</option>
+                                  <option value="27">27</option>
+                                  <option value="28">28</option>
+                                  <option value="29">29</option>
+                                  <option value="30">30</option>
+                                  <option value="31">31</option>
+                            <!-- <option *ngFor="let in of counterDays(31); let i = index" value="{{i}}">{{i}}</option> -->
+
+                        </select>
+
+                        <span class="invalid-feedback">
+                            <span *ngIf="personForm.get('day')?.errors?.required" style="float: left;">
+                                Please select a Day
+                            </span>
+                        </span>
+                    </div>
+
+                     <!-- MONTH -->
+                    <div class="form-group col-md-2">
+
+                        <select class="form-control"
+                                type="select"
+                                formControlName="month"
+                                [ngClass]="{'is-invalid':   ((personForm.get('month')?.touched || 
+                                                              personForm.get('month')?.dirty) && 
+                                                             !personForm.get('month')?.valid)  || 
+                                                              validationMessages && !personForm.get('month')?.valid}" >
+                            
+                            <option value="" disabled selected>
+                                  Select a Month</option>
+                            <option *ngFor="let month of months" value="{{month.monthValue}}">{{month.monthName}}</option>
+
+                        </select>
+
+                        <span class="invalid-feedback">
+                            <span *ngIf="personForm.get('month')?.errors?.required" style="float: left;">
+                                Please select a Month
+                            </span>
+                        </span>
+                    </div>
+
+                     <!-- YEAR -->
+                    <div class="form-group col-md-2">
+
+                        <select class="form-control"
+                                type="select"
+                                formControlName="year"
+                                [ngClass]="{'is-invalid':   ((personForm.get('year')?.touched || 
+                                                              personForm.get('year')?.dirty) && 
+                                                             !personForm.get('year')?.valid)  || 
+                                                              validationMessages && !personForm.get('year')?.valid}" >
+                            
+                            <option value="" disabled selected>
+                                  Select a Year</option>
+                            <option *ngFor="let year of counterYears();" value={{year}}>{{year}}</option>
+    
+                        </select>
+    
+                        <span class="invalid-feedback">
+                            <span *ngIf="personForm.get('year')?.errors?.required" style="float: left;">
+                                Please select a Year
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="control-hint col-md-2">
+                        Select the birthdate of the person
+                    </div>
+                </div>            
+                
+              <!-- Footer -->
+              <div class="form-group row mb-2">
+                <div class="offset-md-2 col-md-4">
+                  <button class="btn btn-primary mr-3"
+                          style="width:80px;"
+                          type="submit"
+                          [title]="personForm.valid ? 'Save your entered data' : 'Form data is currently invalid'"
+                          [disabled]="serviceMessage=='Loading' ? true : false">
+                    Save
+                  </button>
+                  <button class="btn btn-outline-secondary mr-3"
+                          style="width:80px;"
+                          type="button"
+                          title="Cancel your edits"
+                          [routerLink]="['/person-list']"
+                          [disabled]="serviceMessage=='Loading' ? true : false">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+
+              <div *ngIf="errorMessage" class="alert alert-danger {{errorFade}}"
+                                        style="text-align: center;
+                                               width: 70%;
+                                               margin-left: auto;
+                                               margin-right: auto;">
+                {{errorMessage}}</div>
+            </form>
+        </div>
+
+        <div *ngIf="serviceMessage == 'SaveLoading'" class="alert alert-secondary" role="alert" style="text-align: center;">
+            Busy Saving Person. Time taken so far: {{loadingTime}}s.
+        </div>
+
+        <!-- doesnt really get seen as user is loading back into the salary list page already, but if there is a delay for whatever reason, then they see this -->
+        <div *ngIf="serviceMessage == 'SaveSuccess'" class="alert alert-success alert-dismissible" role="alert" style="text-align: center;">
+            Person Successfully Saved!
+            <button class="close btn btn-close" (click)="clearServiceMessage()"></button>  
+        </div>
+        
+        <div *ngIf="serviceMessage == 'SaveFail'" class="alert alert-warning alert-dismissible" role="alert" style="text-align: center;">
+            Error: Failed to Save Person.
+            <button class="close btn btn-close" (click)="clearServiceMessage()"></button>
+        </div>
+    </ng-container>
+
+</div>

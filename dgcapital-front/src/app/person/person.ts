@@ -1,8 +1,11 @@
-import { birthdate } from "./birthdate";
+import { Birthdate } from "./birthdate";
 
 export class Person {
-    id: number;
-    name: string;
-    surname: string;
-    birthdate: birthdate;
+
+    constructor(
+        public id: number,
+        public name: string,
+        public surname: string,
+        public birthdate: Birthdate){
+    }
 }

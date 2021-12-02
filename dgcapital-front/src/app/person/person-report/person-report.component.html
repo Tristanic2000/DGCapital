@@ -13,8 +13,8 @@
         <tbody>
 
             <tr *ngFor="let month of months">
-                <td>{{month}}</td>
-                <td>{{getBirthdays(month)}}</td>
+                <td>{{month.monthName}}</td>
+                <td>{{getBirthdays(month.monthValue)}}</td>
             </tr>
         </tbody>
     </table>

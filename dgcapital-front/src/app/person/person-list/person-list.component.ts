@@ -1,7 +1,7 @@
 import { analyzeNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { birthdate } from '../birthdate';
+import { Birthdate } from '../birthdate';
 import { Person } from '../person';
 import { PersonService } from '../person.service';
 
@@ -14,23 +14,39 @@ export class PersonListComponent implements OnInit {
 
   people: Person[];
 
+  serviceMessage: string = "";
+  loadingTime : number;
+
   constructor(private personService: PersonService,
               private router: Router,) { }
 
   ngOnInit(): void {
+
+    this.serviceMessage = "Loading";
+    this.loadingTime = 0;
+
+    const interval = setInterval(() => {
+      this.loadingTime ++;
+    }, 1000);
+
     this.personService.getPeople().subscribe(
       (people) => {
 
+        clearInterval(interval);
+        this.serviceMessage = "Success";
         console.log(people);
         this.people = people;
       },
       (error) => {
+
+        clearInterval(interval);
+        this.serviceMessage = "Failed";
         console.log(error);
       }
     )
   }
 
-  getAge(birthdate: birthdate): number{
+  getAge(birthdate: Birthdate): number{
 
     if (birthdate){
       var currentDate = new Date();
@@ -49,7 +65,7 @@ export class PersonListComponent implements OnInit {
   }
 
   onEdit(person: Person){
-    
+
     if (person != undefined)
       this.router.navigate(['person', person.id])
   }
@@ -58,4 +74,8 @@ export class PersonListComponent implements OnInit {
     
   }
 
+  clearServiceMessage(){
+    this.loadingTime = 0;
+    this.serviceMessage = "";
+  }
 }
