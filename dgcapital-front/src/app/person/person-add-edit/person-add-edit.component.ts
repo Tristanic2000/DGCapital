@@ -187,7 +187,7 @@ export class PersonAddEditComponent implements OnInit {
     return new Array(i);
   }
 
-  counterYears(){
+  counterYears(): number[]{
 
     var i = 1900;
     var arr = new Array(new Date().getFullYear() - i);
