@@ -8,7 +8,7 @@ import { Person } from './person';
 @Injectable()
 export class PersonService {
 
-  private APIurl = "api/people"
+  private APIurl = "http://localhost:18724/api/person"
   private people: Person[];
 
 
@@ -44,33 +44,18 @@ export class PersonService {
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    if (Person.id === 0) {
-
-     // Person.userId = Math.floor(Math.random() * (10 - 2) + 2);   //1-10 random user ID
-    
-      let randomId = 0;
-      while (randomId === 0){
-
-        randomId = Math.floor(Math.random() * (100 - 2) + 2)  //generates random id from 1 - 100
-
-        if (!this.getPerson(randomId))  //if the Person id already exists, then reroll
-          randomId = 0;
-      }
-      
-      Person.id = randomId;
-      
+    if (Person.id === 0) {      
       return this.createPerson(Person, headers)
     }
-
     return this.updatePerson(Person, headers);
   }
 
 
   private createPerson(Person: Person, headers: HttpHeaders): Observable<Person> {
 
-      //Person.id = null;
+    const url = `${this.APIurl}/create`;
 
-      return this.http.post<Person>(this.APIurl, Person,  { headers: headers} )
+      return this.http.post<Person>(url, Person,  { headers: headers} )
                       .pipe(
                           // delay(2000),
                           tap(data => console.log('createPerson: ' + JSON.stringify(data))),
@@ -81,7 +66,7 @@ export class PersonService {
 
   private updatePerson(Person: Person, headers: HttpHeaders): Observable<Person> {
 
-      const url = `${this.APIurl}/${Person.id}`;
+      const url = `${this.APIurl}/update`;
       return this.http.put<Person>(url, Person, { headers: headers} )
                       .pipe(
                           // delay(2000),
@@ -93,7 +78,9 @@ export class PersonService {
   deletePerson(id: number): Observable<Person> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    const url = `${this.APIurl}/${id}`;
+    const url = `${this.APIurl}/delete/${id}`;
+
+    
     return this.http.delete<Person>(url, { headers: headers} )
                     .pipe(
                         // delay(2000),
