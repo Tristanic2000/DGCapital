@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using DGCapital_back.Data;
 
 namespace DGCapital_back
 {
@@ -22,7 +24,14 @@ namespace DGCapital_back
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
+
+            services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+           // services.AddRazorPages();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,18 +44,27 @@ namespace DGCapital_back
             else
             {
                 app.UseExceptionHandler("/Error");
-            }
+            }            
 
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseCors(x => x
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .SetIsOriginAllowed(origin => true)
+            .AllowCredentials()); ;
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                
+                endpoints.MapControllers();
             });
+
+            SeedData.EnturePopulated(app);
         }
     }
 }
