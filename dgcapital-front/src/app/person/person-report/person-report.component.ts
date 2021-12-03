@@ -47,13 +47,14 @@ export class PersonReportComponent implements OnInit {
   }
 
   getBirthdays(month: string): number {
+    
     if (this.people) {
 
       var i = 0;
 
       this.people.forEach(
         person => {
-          if (person.birthdate.month == month) 
+          if (person.birthdateMonth == month) 
             i++;
         }
       )

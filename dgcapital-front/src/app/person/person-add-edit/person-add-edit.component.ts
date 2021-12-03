@@ -80,7 +80,7 @@ export class PersonAddEditComponent implements OnInit {
         if (id === 0){
 
           this.serviceMessage = "";
-          this.person = new Person(0, "", "", new Birthdate());
+          this.person = new Person(0, "", "", "", "", "");
           this.pageTitle = "Add Person"
 
           this.buildForm();
@@ -123,9 +123,9 @@ export class PersonAddEditComponent implements OnInit {
     this.personForm = this.fb.group({
       name: [this.person.name, [Validators.required, Validators.minLength(2), noWhitespace]],
       surname: [this.person.surname, [Validators.required, Validators.minLength(2), noWhitespace]],
-      day: [this.person.birthdate.day, [Validators.required]],
-      month: [this.person.birthdate.month, [Validators.required]],
-      year: [this.person.birthdate.year, [Validators.required]]
+      day: [this.person.birthdateDay, [Validators.required]],
+      month: [this.person.birthdateMonth, [Validators.required]],
+      year: [this.person.birthdateYear, [Validators.required]]
     })
   }
 
@@ -152,9 +152,9 @@ export class PersonAddEditComponent implements OnInit {
     if (this.personForm.valid) {
       this.person.name = this.personForm.get("name")?.value;
       this.person.surname = this.personForm.get("surname")?.value;
-      this.person.birthdate.day = this.personForm.get("day")?.value;
-      this.person.birthdate.month = this.personForm.get("month")?.value;
-      this.person.birthdate.year = this.personForm.get("year")?.value;
+      this.person.birthdateDay = this.personForm.get("day")?.value;
+      this.person.birthdateMonth = this.personForm.get("month")?.value;
+      this.person.birthdateYear = this.personForm.get("year")?.value;
 
       this.serviceMessage = "SaveLoading";
       this.loadingTime = 0;

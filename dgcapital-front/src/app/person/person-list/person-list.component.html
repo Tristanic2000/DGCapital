@@ -3,7 +3,7 @@
             List of People
     </div>
 
-
+                        <!-- LOAD ALL PEOPLE -->
     <div *ngIf="serviceMessage == 'Loading'" class="alert alert-secondary" role="alert" style="text-align: center;">
         Busy Loading People. Time taken so far: {{loadingTime}}s.
     </div>
@@ -15,6 +15,23 @@
         Error: Failed to load People.
         <button class="close btn btn-close" (click)="clearServiceMessage()"></button>
     </div>
+
+
+
+                        <!-- DELETE A PERSON -->
+    <div *ngIf="serviceMessage == 'DeleteLoading'" class="alert alert-secondary" role="alert" style="text-align: center;">
+        Busy Deleting Person. Time taken so far: {{loadingTime}}s.
+    </div>
+    <div *ngIf="serviceMessage == 'DeleteSuccess'" class="alert alert-success alert-dismissible" role="alert" style="text-align: center;">
+        Person Successfully Deleted!
+        <button class="close btn btn-close" (click)="clearServiceMessage()"></button>
+    </div>
+    <div *ngIf="serviceMessage == 'DeleteFail'" class="alert alert-warning alert-dismissible" role="alert" style="text-align: center;">
+        Error: Failed to Delete Person.
+        <button class="close btn btn-close" (click)="clearServiceMessage()"></button>
+    </div>
+
+
 
 
     <ng-container *ngIf="people">
@@ -31,13 +48,13 @@
                 <tr *ngFor="let person of people">
                     <td>{{person.name}}</td>
                     <td>{{person.surname}}</td>
-                    <td>{{getAge(person.birthdate)}}</td>
+                    <td>{{getAge(person)}}</td>
     
                     <td>
                         <button class="btn btn-warning" (click)="onEdit(person)" style="margin-right: 10px;">Edit
                         </button>
     
-                        <button class="btn btn-danger" (click)="onDelete(person)">Delete
+                        <button class="btn btn-danger"  (click)="onDelete(person)">Delete
                         </button>
                     </td>
                 </tr>

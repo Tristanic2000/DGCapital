@@ -6,6 +6,8 @@ export class Person {
         public id: number,
         public name: string,
         public surname: string,
-        public birthdate: Birthdate){
+        public birthdateDay: string,
+        public birthdateMonth: string,
+        public birthdateYear: string){
     }
 }

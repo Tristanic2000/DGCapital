@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PersonModule } from './person/person.module';
-import { FakePerson } from './person/person.fake';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,7 @@ import { FakePerson } from './person/person.fake';
     ]),
     PersonModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(FakePerson)
+   // HttpClientInMemoryWebApiModule.forRoot(FakePerson)
   ],
   providers: [],
   bootstrap: [AppComponent]
